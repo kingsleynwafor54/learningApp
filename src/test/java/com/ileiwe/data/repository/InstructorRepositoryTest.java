@@ -34,6 +34,8 @@ class InstructorRepositoryTest {
     }
 
     @Test
+    @Transactional
+    @Rollback(value = false)
     void saveInstructorAsLearningPartyTest(){
         //create a learning party
         LearningParty user =
