@@ -11,5 +11,6 @@ import com.ileiwe.data.model.Instructor;
  */
 public interface InstructorService {
     Instructor save(InstructorPartyDto dto);
+//    Instructor findInstructor()
 
 }

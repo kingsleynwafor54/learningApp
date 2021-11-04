@@ -7,7 +7,8 @@ import com.ileiwe.data.model.LearningParty;
 import com.ileiwe.data.model.Role;
 import com.ileiwe.data.repository.InstructorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,8 +24,8 @@ public class InstructorServiceImpl implements InstructorService{
     @Autowired
     InstructorRepository instructorRepository;
 
-    @Autowired
-    BCryptPasswordEncoder passwordEncoder;
+    InstructorPartyDto instructorPartyDto;
+//    BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public Instructor save(InstructorPartyDto instructorDto) {
@@ -35,7 +36,8 @@ public class InstructorServiceImpl implements InstructorService{
         }
         LearningParty learningParty
                 = new LearningParty(instructorDto.getEmail()
-                            ,passwordEncoder.encode(instructorDto.getPassword())
+//                            ,passwordEncoder.encode(instructorDto.getPassword())
+                ,instructorDto.getPassword()
                         , new Authority(Role.ROLE_INSTRUCTOR));
 
         Instructor instructor = Instructor.builder()

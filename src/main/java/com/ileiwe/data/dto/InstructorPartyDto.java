@@ -1,6 +1,7 @@
 package com.ileiwe.data.dto;
 
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
 
 /**
  * @author oluwatobi
@@ -8,6 +9,7 @@ import lombok.Data;
  * @date on 29/10/2021
  * inside the package - com.ileiwe.data
  */
+
 @Data
 public class InstructorPartyDto {
     private String email;

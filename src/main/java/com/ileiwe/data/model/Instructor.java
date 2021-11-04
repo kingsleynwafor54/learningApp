@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +41,14 @@ public class Instructor {
     private String bio;
     @OneToOne(cascade = CascadeType.PERSIST)
     private LearningParty learningParty;
-    @OneToMany
+    @OneToMany(cascade=CascadeType.PERSIST)
     private List<Course> courses;
+
+//    public void addCourse(Course course){
+//        if(courses==null){
+//            courses=new ArrayList<>();
+//        }
+//        courses.add(course);
+//    }
 
 }
