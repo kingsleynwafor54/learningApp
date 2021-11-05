@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/course")
 public class CourseController {
@@ -22,15 +24,18 @@ public class CourseController {
       return ResponseEntity.ok().body(courseService.create(courseDto, id));
     }
     @GetMapping("/course/{id}")
-    public Course createCourse(@PathVariable Long id) {
+    public Course getCourse(@PathVariable Long id) {
 
       return courseService.viewCourse(id);
     }
 
   @PutMapping("/update/{id}/{num}")
-  public void update(@RequestBody CourseDto courseDto,@PathVariable Long id,@PathVariable Long num) {
+  public Course update(@RequestBody CourseDto courseDto,@PathVariable Long id,@PathVariable Long num) {
 
-     courseService.update(courseDto,id,num);
+     return courseService.update(courseDto,id,num);
   }
-
+  @GetMapping("/allCourses")
+public List<Course> viewAllCourses(){
+      return courseService.viewAllCourse();
     }
+}

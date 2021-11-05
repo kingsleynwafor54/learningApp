@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class CourseServiceImpl implements CourseService{
     public Course create(CourseDto courseDto,Long id) {
       Instructor instructor=instructorRepository.findById(id).orElse(null);
       Course courseInRepo = courseRepository.findCourseByTitle(courseDto.getTitle());
-      if(courseInRepo != null){
+      if(courseInRepo == null){
           throw new NullPointerException("Course with tile "+courseDto.getTitle() +" already exists");
       }
 
@@ -45,45 +46,32 @@ public class CourseServiceImpl implements CourseService{
 
     }
 
-//    @Override
-//    public void update(CourseDto courseDto,Long id,Long num) {
-//        Instructor instructor=instructorRepository.findById(id).get();
-//        int num1 = Math.toIntExact(num);
-//
-//        instructor.getCourses().get(num1).setTitle(courseDto.getTitle());
-//        instructor.getCourses().get(num1).setDescription(courseDto.getDescription());
-//        instructor.getCourses().get(num1).setDuration(courseDto.getDuration());
-//        instructor.getCourses().get(num1).setLanguage(courseDto.getLanguage());
-//        instructor.getCourses().get(num1).setImageUrls(courseDto.getImgUrl());
-//        instructor.getCourses().get(num1).setInstructor(courseDto.getInstructor());
-//
-//        courseRepository.save(instructor.getCourses().get(num1));
-//    }
+
 
     @Override
     public Course update(CourseDto courseDto,Long id,Long num) {
-        Course course = courseRepository.findById(id).orElse(null);
+        Course course = courseRepository.findById(num).orElse(null);
         if (instructorRepository.findById(id).isPresent()) {
             Instructor instructor = instructorRepository.findById(id).get();
 
+//            int num1 = Math.toIntExact(num);
 
-            int num1 = Math.toIntExact(num);
 
-            if (course != null) {
-                course.setTitle(courseDto.getTitle());
+            assert course != null;
+            course.setTitle(courseDto.getTitle());
                 course.setDescription(courseDto.getDescription());
                 course.setDuration(courseDto.getDuration());
                 course.setLanguage(courseDto.getLanguage());
                 course.setImageUrls(courseDto.getImgUrl());
                 course.setInstructor(instructor);
 
-                return courseRepository.save(course);
+//              return courseRepository.save(course);
 
             } else {
                 throw new NullPointerException("Instructor with id " + id + " not found");
             }
 
-        }
+
         return courseRepository.save(course);
     }
     @Override
@@ -102,12 +90,31 @@ public class CourseServiceImpl implements CourseService{
     @Override
     public Course viewCourse(Long id) {
 
-        return courseRepository.findById(id).orElse(null);
+        Course course= courseRepository.findById(id).orElse(null);
+        if(course==null){
+            throw new NullPointerException("Course does not exist");
+        }
+        return course;
     }
 
     @Override
-    public void publishCourse(Long id) {
+    public Course publishCourse(Long courseId,Long instructorId) {
+        Course course=courseRepository.findById(courseId).orElse(null);
+        Instructor instructor=instructorRepository.findById(instructorId).orElse(null);
+    if(course==null&& course.getInstructor().getId().equals(instructor.getId())){
+        throw new NullPointerException("course does not exist");
+    }
 
+    if(!course.isPublished()){
+        course.setPublished(true);
+        course.setDatePublished(LocalDateTime.now());
+    }
+   else if(course.isPublished()){
+        course.setPublished(false);
+        course.setDatePublished(LocalDateTime.now());
+    }
+
+    return courseRepository.save(course);
     }
 
     @Override
@@ -120,4 +127,10 @@ public class CourseServiceImpl implements CourseService{
         }
         return null;
     }
+
+    @Override
+    public List<Course> viewAllCourse() {
+        return courseRepository.findAll();
+    }
+
 }
