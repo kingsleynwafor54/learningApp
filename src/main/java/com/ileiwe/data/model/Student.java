@@ -31,10 +31,10 @@ public class Student {
     private LocalDate dob;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    @OneToOne
+    @OneToOne(cascade=CascadeType.PERSIST)
     private LearningParty learningParty;
 
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.PERSIST)
     private List<Course> enrolledCourses;
 
 }
