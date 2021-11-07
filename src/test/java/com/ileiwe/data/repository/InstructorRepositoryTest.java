@@ -1,6 +1,7 @@
 package com.ileiwe.data.repository;
 
 import com.ileiwe.data.model.*;
+import com.ileiwe.service.instructorservice.InstructorService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,8 @@ class InstructorRepositoryTest {
 
     @Autowired
     InstructorRepository instructorRepository;
+    @Autowired
+    InstructorService instructorService;
 
     @BeforeEach
     void setUp() {
@@ -35,7 +38,7 @@ class InstructorRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(value = false)
+   @Rollback(value = false)
     void saveInstructorAsLearningPartyTest(){
         //create a learning party
         LearningParty user =
@@ -123,15 +126,16 @@ class InstructorRepositoryTest {
                 ,() -> instructorRepository.save(instructor));
 
     }
-
-
-
-
-
-
-
-
-
+//@Test
+//    void testThatInstructorHasCourse(){
+//        assertThat(instructorRepository).isNotNull();
+//
+//       instructorService.coursesAnInstructorHas(1L);
+//    Instructor instructor=instructorRepository.findById(1L).orElse(null);
+//
+//   assertEquals(1,instructor.getCourses().size());
+//
+//}
 
 
 }

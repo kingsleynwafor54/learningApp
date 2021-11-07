@@ -4,6 +4,7 @@ package com.ileiwe.controller;
 import com.ileiwe.data.dto.CourseDto;
 import com.ileiwe.data.dto.InstructorPartyDto;
 import com.ileiwe.data.model.Course;
+import com.ileiwe.data.model.Instructor;
 import com.ileiwe.data.repository.CourseRepository;
 import com.ileiwe.service.courseService.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,4 +39,13 @@ public class CourseController {
 public List<Course> viewAllCourses(){
       return courseService.viewAllCourse();
     }
+
+    @PutMapping("/publish_course/{course}/{instructor}")
+  public Course publish(@PathVariable Long course,@PathVariable Long instructor){
+  return courseService.publishCourse(course,instructor);
+    }
+    @PutMapping("/Instruction_update/{id}")
+public Instructor readListOfInstructorCourse(@PathVariable Long id){
+      return courseService.coursesAnInstructorHas(id);
+}
 }

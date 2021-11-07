@@ -17,24 +17,24 @@ import static org.junit.jupiter.api.Assertions.*;
 @Slf4j
 class CourseServiceImplTest {
     @Autowired
-InstructorRepository instructorRepository;
+    InstructorRepository instructorRepository;
     @Autowired
     CourseRepository courseRepository;
 
     @Autowired
     CourseServiceImpl courseServiceImpl;
+
     @Test
     void create() {
-        CourseDto courseDto=new CourseDto();
-        courseDto.setTitle("Java");
-        courseDto.setDescription("Learning programming using the language of java");
+        CourseDto courseDto = new CourseDto();
+        courseDto.setTitle("The king");
+        courseDto.setDescription("The King's Beauty");
         courseDto.setDuration("1hour, 30min");
-        courseDto.setLanguage("English");
-       assertThat(courseRepository.findAll().size()).isEqualTo(1);
-       courseServiceImpl.create(courseDto,1L);
-        assertThat(courseRepository.findAll().size()).isEqualTo(2);
+        courseDto.setLanguage("English,Igbo and yoruba");
+        assertThat(courseRepository.findAll().size()).isEqualTo(3);
+        courseServiceImpl.create(courseDto, 2L);
+        assertThat(courseRepository.findAll().size()).isEqualTo(4);
     }
-
 
 
     @Transactional
@@ -49,22 +49,31 @@ InstructorRepository instructorRepository;
 
     @Test
     void viewCourse() {
-        log.info("This are the Courses",courseServiceImpl.viewCourse(1L));
+        log.info("This are the Courses", courseServiceImpl.viewCourse(1L));
     }
 
     @Test
     void publishCourse() {
-Course course1=courseRepository.findById(2L).get();
+        Course course1 = courseRepository.findById(2L).get();
         //assertThat(course1.isPublished()).isFalse();
-        log.info("The result of the test is before{}",course1.isPublished());
-     Course course= courseServiceImpl.publishCourse(2L,1L);
+        log.info("The result of the test is before{}", course1.isPublished());
+        Course course = courseServiceImpl.publishCourse(2L, 1L);
 
 //
-       assertThat(course.isPublished()).isTrue();
-        log.info("The result of the test is After{}",course.isPublished());
+        assertThat(course.isPublished()).isTrue();
+        log.info("The result of the test is After{}", course.isPublished());
     }
 //    @Test
-//    void viewFindAll(){
-//
+//    void upDateCourse(){
+//        CourseDto courseDto=new CourseDto();
+//        courseDto.setTitle("The king");
+//        courseDto.setDescription("The King's Beauty");
+//        courseDto.setDuration("1hour, 30min");
+//        courseDto.setLanguage("English,Igbo and yoruba");
+//        //assertThat(courseRepository.findAll().size()).isEqualTo(courseRepository.findAll().size());
+//        courseServiceImpl.update(courseDto,2L,1L);
+//        assertThat(courseRepository.findAll().size()).isEqualTo(courseRepository.findAll().size());
 //    }
+//}
+
 }

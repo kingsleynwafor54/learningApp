@@ -26,25 +26,32 @@ public class CourseServiceImpl implements CourseService{
     @Transactional
     public Course create(CourseDto courseDto,Long id) {
       Instructor instructor=instructorRepository.findById(id).orElse(null);
-      Course courseInRepo = courseRepository.findCourseByTitle(courseDto.getTitle());
-      if(courseInRepo == null){
-          throw new NullPointerException("Course with tile "+courseDto.getTitle() +" already exists");
-      }
+//     Course courseInRepo = courseRepository.findCourseByTitle(courseDto.getTitle());
+       Course course = new Course();
+//
+//          //
+//
+//if(courseInRepo==null){
+//    throw new NullPointerException("Course with title " + courseDto.getTitle() + " is null");
+//}
+//          if (instructor != null) {
 
-       if(instructor != null){
-           Course course = new Course();
-           course.setTitle(courseDto.getTitle());
-           course.setDescription(courseDto.getDescription());
-           course.setDuration(courseDto.getDuration());
-           course.setLanguage(courseDto.getLanguage());
-           course.setImageUrls(courseDto.getImgUrl());
-           course.setInstructor(instructor);
+              course.setTitle(courseDto.getTitle());
+              course.setDescription(courseDto.getDescription());
+              course.setDuration(courseDto.getDuration());
+              course.setLanguage(courseDto.getLanguage());
+              course.setImageUrls(courseDto.getImgUrl());
+              course.setInstructor(instructor);
 
-            return courseRepository.save(course);
-        }
-       else{throw new NullPointerException("Instructor with id "+id +" not found");}
 
-    }
+              return courseRepository.save(course) ;
+
+
+          }
+
+
+      // else{throw new IllegalArgumentException("Already existing course "+id +" not found");}
+
 
 
 
@@ -66,6 +73,7 @@ public class CourseServiceImpl implements CourseService{
                 course.setInstructor(instructor);
 
 //              return courseRepository.save(course);
+
 
             } else {
                 throw new NullPointerException("Instructor with id " + id + " not found");
@@ -131,6 +139,20 @@ public class CourseServiceImpl implements CourseService{
     @Override
     public List<Course> viewAllCourse() {
         return courseRepository.findAll();
+    }
+    @Override
+    public Instructor coursesAnInstructorHas(Long id) {
+        Instructor instructor=instructorRepository.findById(id).orElse(null);
+         Course course=courseRepository.findById(id).orElse(null);
+       assert course != null;
+        assert instructor != null;
+        if(course.getInstructor().getId().equals(instructor.getId())){
+           //int i = Math.toIntExact(id);
+                instructor.getCourses().add(courseRepository.getById(id));
+
+            //
+        }
+        return instructorRepository.save(instructor);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.ileiwe.controller;
 
 import com.ileiwe.data.dto.InstructorPartyDto;
-import com.ileiwe.service.instructor.InstructorServiceImpl;
+import com.ileiwe.service.instructorservice.InstructorServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,4 +34,6 @@ public class RegistrationController {
            ResponseEntity.ok()
         .body(instructorService.save(instructorPartyDto));
     }
+
+
 }

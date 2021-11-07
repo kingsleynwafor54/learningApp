@@ -1,11 +1,10 @@
-package com.ileiwe.service.instructor;
+package com.ileiwe.service.instructorservice;
 
 import com.ileiwe.data.dto.InstructorPartyDto;
-import com.ileiwe.data.model.Authority;
-import com.ileiwe.data.model.Instructor;
-import com.ileiwe.data.model.LearningParty;
-import com.ileiwe.data.model.Role;
+import com.ileiwe.data.model.*;
+import com.ileiwe.data.repository.CourseRepository;
 import com.ileiwe.data.repository.InstructorRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,12 +18,15 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
+@Slf4j
 public class InstructorServiceImpl implements InstructorService{
 
     @Autowired
     InstructorRepository instructorRepository;
 
-    InstructorPartyDto instructorPartyDto;
+    @Autowired
+    CourseRepository courseRepository;
+    //InstructorPartyDto instructorPartyDto;
 //    BCryptPasswordEncoder passwordEncoder;
 
     @Override
@@ -47,4 +49,5 @@ public class InstructorServiceImpl implements InstructorService{
 
        return instructorRepository.save(instructor);
     }
+
 }
