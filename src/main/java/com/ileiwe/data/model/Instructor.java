@@ -11,12 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author oluwatobi
- * @version 1.0
- * @date on 27/10/2021
- * inside the package - com.ileiwe.data.model
- */
+
 
 @Entity
 @Data

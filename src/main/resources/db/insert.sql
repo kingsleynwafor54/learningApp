@@ -2,7 +2,7 @@ set foreign_key_checks = 0;
 
 truncate table learning_party;
 truncate table authority;
-truncate table instructor;
+-- truncate table instructor;
 
 insert into learning_party(`id`, `email`,`password`, `enabled`)
 values(123, 'tomi@mail.com', '123pass321', false),

@@ -1,7 +1,9 @@
-package com.ileiwe.service.instructor;
+package com.ileiwe.service.instructorservice;
 
 import com.ileiwe.data.dto.InstructorPartyDto;
+import com.ileiwe.data.dto.StudentDto;
 import com.ileiwe.data.model.Instructor;
+import com.ileiwe.data.model.Student;
 
 /**
  * @author oluwatobi
@@ -11,6 +13,8 @@ import com.ileiwe.data.model.Instructor;
  */
 public interface InstructorService {
     Instructor save(InstructorPartyDto dto);
-//    Instructor findInstructor()
+   // Student create(StudentDto dto);
+
+//     Instructor findInstructor()
 
 }
